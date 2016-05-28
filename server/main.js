@@ -18,6 +18,10 @@ function onRoute(req, res, next) {
 
 
   if (link) {
+
+    // Increment the link clicks using MongoModifiers
+    Links.update(link, { $inc: { clicks: 1 }});
+
     // If we find a link object, redirect the user to the
     // long url
     res.writeHead(307, { 'Location': link.url });
@@ -27,8 +31,6 @@ function onRoute(req, res, next) {
     // to the long URL
     next();
   }
-
-
 }
 
 // Add middleware
